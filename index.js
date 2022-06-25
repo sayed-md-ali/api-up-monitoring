@@ -1,32 +1,23 @@
 /*
- * Title: Uptime Monitoring Application
+ * Title: library init function
  * Description: A RESTFul API to monitor up or down time of user defined links
  * Author: Sumit Saha ( Learn with Sumit )
  * Date: 11/15/2020
  *
  */
+
+
 // dependencies
-const http = require('http');
-const { handleReqRes } = require('./helpers/handleReqRes');
 
-// app object - module scaffolding
-const app = {};
+const server = require('./lib/server');
+const worker = require('./lib/worker');
 
-// configuration
-app.config = {
-    port: 3000,
-};
+const app ={};
 
-// create server
-app.createServer = () => {
-    const server = http.createServer(app.handleReqRes);
-    server.listen(app.config.port, () => {
-        console.log(`listening to port ${app.config.port}`);
-    });
-};
+app.init = () =>{
+    server.init();
+    worker.init();
+}
+app.init();
 
-// handle Request Response
-app.handleReqRes = handleReqRes;
-
-// start the server
-app.createServer();
+module.exports = app;
